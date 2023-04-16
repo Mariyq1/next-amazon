@@ -37,7 +37,7 @@ const data = {
             description: 'A popular shirt'
         },
         {
-            name: 'Golg Pants',
+            name: 'Golf Pants',
             slug:'golf-pants',
             category:'Pants',
             image: '/images/pants1.jpg',
@@ -62,3 +62,4 @@ const data = {
         }
     ]
 }
+export default data
