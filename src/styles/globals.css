@@ -26,5 +26,9 @@ a{
   max-width: 300px;
   margin-right: 20px;
 }
-
+input,
+select,
+textarea{
+  @apply rounded border p-2 outline-none ring-indigo-300 from-current;
+}
 
