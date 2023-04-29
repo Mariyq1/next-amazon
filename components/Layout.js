@@ -1,9 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import { Store } from "../utils/Store";
+import { useSession } from "next-auth/react";
+import User from "../models/User";
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Layout({children, title}){
+    const {status, data: session} = useSession();
     const {state, dispatch} = useContext(Store);
     const {cart} = state;
     const [cartItemsCount, setCartItemsCount] = useState(0)
@@ -18,6 +23,7 @@ export default function Layout({children, title}){
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head> 
+      <ToastContainer position="bottom-center" limit={1}/>
         <div className='flex min-h-screen flex-col justify-between'>
             <header>
                 <nav className='flex h-12 item-center px-4 justify-between shadow-md'>
@@ -32,7 +38,16 @@ export default function Layout({children, title}){
                             </span>
                         )}
                         </a></Link>
-                        <Link legacyBehavior href="/login"><a className="p-2">Login</a></Link>
+                        
+                            {status === 'loading' ? ('Loading'): 
+                            session?.user ? session.user.name: 
+                            (
+                                <Link legacyBehavior href="/login">
+                                    <a className="p-2">Login</a>
+                                </Link>
+                            )
+                            }
+                            
                     </div>
                 </nav>
             </header>
